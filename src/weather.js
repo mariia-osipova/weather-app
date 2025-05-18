@@ -5,15 +5,7 @@ export async function renderWeather() {
         return
     }
 
-    // читаем ключ внутри функции
-    const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY
-    if (!API_KEY) {
-        document.getElementById('app').innerHTML = `
-      <p style="color:red">Missing API key.</p>
-    `
-        return
-    }
-
+    const API_KEY = 'eea92242ad2dd1114373984a18555b58'
     const app = document.getElementById('app')
     app.innerHTML = `
     <h1>Current Weather in Moscow</h1>
@@ -22,8 +14,8 @@ export async function renderWeather() {
 
     try {
         const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather` +
-            `?q=Moscow&units=metric&lang=en&appid=${API_KEY}`
+            `https://api.openweathermap.org/data/2.5/weather?` +
+            `q=Moscow&units=metric&lang=en&appid=${API_KEY}`
         )
         const data = await res.json()
         if (!res.ok) throw new Error(data.message)
@@ -42,3 +34,4 @@ export async function renderWeather() {
         app.querySelector('#weather').textContent = 'Error: ' + err.message
     }
 }
+
